@@ -37,30 +37,30 @@ function serachCoins() {
     if (search == "") {
         getAllCoins();
     }
-     else {
+    else {
         $.ajax({
-            url: "https://api.coingecko.com/api/v3/coins/"+search, // The Address To Send The Request to
+            url: "https://api.coingecko.com/api/v3/coins/" + search, // The Address To Send The Request to
             type: "get", //the request protocol type
             data: {}, // the data we want to send to the server
             success: function (result) { // the callback function to run when we get the data back from the server
                 console.log(result);
-                for (i=0 ; i>result.length ; i++){
-                
-                if(search == symbol){
-                //    getAllCoins(result[i].id);
-                   arrangeCoins(result[i].id);
+                for (i = 0; i > result.length; i++) {
 
-                } 
-            } 
-        }    
-            
-            });
-        }
-    } 
-    
-   
+                    if (search == symbol) {
+                        //    getAllCoins(result[i].id);
+                        arrangeCoins(result[i].id);
+
+                    }
+                }
+            }
+
+        });
+    }
+}
+
+
 function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכניסה נתונים לכל מטבע ומטבע //
-    for (i = 0; i < 20 ; i++) {
+    for (i = 0; i < 20; i++) {
         let id = result[i].id;
         let cube = $("<div id='" + id + "'  class='col-md-3 cube'></div>");
         $(cube).append("<div>" + result[i].symbol.toUpperCase() + "</div><div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");
@@ -88,54 +88,59 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
 
 function moreInfo(id) {
     console.log(id);
-    $.ajax({
-        url: "https://api.coingecko.com/api/v3/coins/" + id, // The Address To Send The Request to
-        type: "get", //the request protocol type
-        data: {}, // the data we want to send to the server
-        success: function (result) { // the callback function to run when we get the data back from the server
-            // console.log(result);
-            $("#info_" + id).html("");  //מנקה 
-            
-            $("#info_" + id).append("<div class='inside'>" + "<img src=" + result.image.large + " /></div><br/>"); //מוסיף את תמונת המטבע הנבחר
-            $("#info_" + id).append("<div class='dollar'>1 " + result.name + " = " + result.market_data.current_price.usd.toFixed(7) + " $</div><br/>"); //מוסיף את ערך המטבע הנבחר לעומת הדולר
-            $("#info_" + id).append("<div class='euro'>1 " + result.name + " = " + result.market_data.current_price.eur.toFixed(7) + " &#8364</div><br/>");//מוסיף את ערך המטבע הנבחר לעומת האירו
-            $("#info_" + id).append("<div class='shekel'>1 " + result.name + " = " + result.market_data.current_price.ils.toFixed(7) + " &#8362</div><br/>");//מוסיף את ערך המטבע הנבחר לעומת השקל
 
-            $("#" + id).append($("#info_" + id)); //מוסיף את כל האינפורמציה שהתקבלה ב אינפו עם קו תחתון לתוך איידי של שם המטבע
-            
-            var cry = {
-                id : result.id,
-                USD : result.market_data.current_price.usd.toFixed(7),
-                EUR : result.market_data.current_price.eur.toFixed(7),
-                ILS :result.market_data.current_price.ils.toFixed(7)
-            };
+    getCoinInfoAsync(id, function (result) { //html פונקציה זו מקבלת איידי ומחזירה רזולט עי שקוראת לפונקציה אנונימית שאיתו בונים את 
+        $("#info_" + id).html("");  //מנקה 
 
-            
-            let arr = localStorage.coinsarray ? JSON.parse(localStorage.coinsarray) : [];
-            //if(localStorage.coinsarray) {      אם קויינסאראי קיים בלוקל אז תיקח מהלוקל נתונים ותכניס לאראיי אחרת אראיי יהיה מערך ריק 
-                // arr = JSON.parse(localStorage.coinsarray) }else { arr =[]; }        }
-            if (0 <= arr.findIndex(function(cry) { //אם קיים אובייקט בשם 'קריי' בתוך מערך 'אריי' והוא שווה ל'איי די' אז תדפיס ללוג אחרת תוסיף למערך 
-                return cry.id == id;
-            })
-            ) {
-                console.log(cry.id);
-            } else {
-                arr.push(cry);
-                // localStorage.coins_storage = JSON.stringify(arr_coins);
-            }
-            localStorage.coinsarray = JSON.stringify(arr);
+        $("#info_" + id).append("<div class='inside'>" + "<img src=" + result.image.large + " /></div><br/>"); //מוסיף את תמונת המטבע הנבחר
+        $("#info_" + id).append("<div class='dollar'>1 " + result.name + " = " + result.market_data.current_price.usd.toFixed(7) + " $</div><br/>"); //מוסיף את ערך המטבע הנבחר לעומת הדולר
+        $("#info_" + id).append("<div class='euro'>1 " + result.name + " = " + result.market_data.current_price.eur.toFixed(7) + " &#8364</div><br/>");//מוסיף את ערך המטבע הנבחר לעומת האירו
+        $("#info_" + id).append("<div class='shekel'>1 " + result.name + " = " + result.market_data.current_price.ils.toFixed(7) + " &#8362</div><br/>");//מוסיף את ערך המטבע הנבחר לעומת השקל
 
-            // for (let i = 0; i<arr.length; i++){
-            //     console.log("ARR = " + arr[i].Name);
-            //     if (arr[i].Name != result.name){
-            //         arr.push(cry);
-            //         localStorage.coinsarray=JSON.stringify(arr);
-            //     }
-            // }
-        },
-        error: function (xhr) {
-            console.log("Error:", xhr);
-        },
-
+        $("#" + id).append($("#info_" + id)); //מוסיף את כל האינפורמציה שהתקבלה ב אינפו עם קו תחתון לתוך איידי של שם המטבע
     });
+
 }
+
+/**
+ * Put the info in the cache
+ * @param {string} id 
+ * @param {*} info 
+ */
+function cacheCoinInfo(id, info) {
+    let coins = localStorage.coinsarray ? JSON.parse(localStorage.coinsarray) : {};
+    coins[id] = {
+        time: Date.now(),
+        info: info,
+    };
+    localStorage.coinsarray = JSON.stringify(coins);
+}
+
+/**
+ * Get info about the coin either from the cache or from an Ajax call
+ * @param {string} id 
+ * @param {function} callback 
+ */
+function getCoinInfoAsync(id, callback) {
+    let coins = localStorage.coinsarray ? JSON.parse(localStorage.coinsarray) : {};
+    if (coins[id] && Date.now() < coins[id].time + 120000) {
+        callback(coins[id].info);
+    } else {
+        $.ajax({
+            url: "https://api.coingecko.com/api/v3/coins/" + id, // The Address To Send The Request to
+            type: "get", //the request protocol type
+            data: {}, // the data we want to send to the server
+            success: function (result) { // the callback function to run when we get the data back from the server
+                cacheCoinInfo(id, result);
+                callback(result);
+            },
+            error: function (xhr) {
+                console.log("Error:", xhr);
+            },
+
+        });
+    }
+
+
+}
+
