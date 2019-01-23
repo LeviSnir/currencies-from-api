@@ -38,7 +38,7 @@ function serachCoins() {
         getAllCoins();
     }
     else {
-        $(".showallcoins").html("<img class='large-gif' src='images/bity.gif' />")
+        
         $.ajax({
             url: "https://api.coingecko.com/api/v3/coins/list", // The Address To Send The Request to
             type: "get", //the request protocol type
@@ -47,6 +47,7 @@ function serachCoins() {
                 console.log(result);
                 for(a=0 ; a<result.length ; a++){
                 if(search === result[a].symbol){
+                $(".showallcoins").html("<img class='large-gif' src='images/bity.gif' />")
                 let id = result[a].id;
                 let cube = $("<div id='" + id + "'  class='onecube'></div>");
                 $(cube).append("<div>" + result[a].symbol.toUpperCase() + "</div><div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");
