@@ -15,7 +15,10 @@ body,html{
   background-repeat: no-repeat;
   background-size: cover; 
 }  */
-
+.showallcoins{
+    position: relative;
+    left: 4%;
+}
 .header{
     height: 200px;
     background-color: brown;
@@ -37,7 +40,7 @@ h2{
     float: right;
     position: relative;
     top:110px;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     
 }
 
@@ -76,9 +79,7 @@ h2{
 .large-gif{
     height: 600px;
     width: 900px;
-    position: relative;
-    left: 18%;
-       
+          
 }
 
 .small-gif{
