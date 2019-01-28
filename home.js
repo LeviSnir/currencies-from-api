@@ -78,7 +78,7 @@ function serachCoins() {
 
 
 function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכניסה נתונים לכל מטבע ומטבע //
-    for (i = 0; i < result.length; i++) {
+    for (i = 0; i < 50; i++) {
         let id = result[i].id;
         let cube = $("<div id='" + id + "'  class='col-md-3 cube'></div>");
         $(cube).append("<div>" + result[i].symbol.toUpperCase() + "</div><div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");
