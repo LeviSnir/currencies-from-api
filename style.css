@@ -49,10 +49,10 @@ h2{
     padding: 5px;
     
 }
-/* .navbar-nav{
+.navbar-nav{
     color: gold;
 }
- */
+
 
 .navbar .navbar-nav .nav-item:hover{
     background: rgb(109, 3, 3);
