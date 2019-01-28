@@ -1,8 +1,7 @@
 
 $(document).ready(function () {
 
-
-    $("#home").on("click", function () {
+     $("#home").on("click", function () {
         getAllCoins();
     });
     $("#searchcoin").on("click", function () {
@@ -163,23 +162,15 @@ function getCoinInfoAsync(id, callback) {
 }
 
 // building the modal //
-let modal = $('#mymodal'); // getting the modal ->this is equal to var modal = document.getelementbyid('mymodal')//
-let opnmodal = $('#opnmodal'); // getting the button//
-let clsmod = $('.close')[0]; // this is the close button var clsmod=document.getelementbyclassname('close')//
+    
+    //activating the modal//
+    $('#opnmodal').on("click", function(){
+       $('#mymodal').css("display","block");
+    });
+    
+    //when clicking on x close the modal//
+    $('.close').on("click", function(){
+        $('#mymodal').css("display","none");
+    });
 
-//activating the modal//
-opnmodal.onclick = function(){
-    modal.style.display = "block";
-}
-
-//when clicking on x close the modal//
-clsmod.onclick = function(){
-    modal.style.display = "none";
-}
-
-//when clicking anywhere outside the modal -> close the modal//
-window.onclick = function(event){
-    if (event.target==modal){
-        modal.style.display = "none";
-    }
-}
+    
