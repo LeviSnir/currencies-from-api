@@ -168,7 +168,7 @@ let opnmodal = $('#opnmodal'); // getting the button//
 let clsmod = $('.close')[0]; // this is the close button var clsmod=document.getelementbyclassname('close')//
 
 //activating the modal//
-$(opnmodal).onclick = function(){
+opnmodal.onclick = function(){
     modal.style.display = "block";
 }
 
