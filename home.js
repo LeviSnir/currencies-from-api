@@ -162,3 +162,24 @@ function getCoinInfoAsync(id, callback) {
 
 }
 
+// building the modal //
+let modal = $('#mymodal'); // getting the modal ->this is equal to var modal = document.getelementbyid('mymodal')//
+let opnmodal = $('#opnmodal'); // getting the button//
+let clsmod = $('.close')[0]; // this is the close button var clsmod=document.getelementbyclassname('close')//
+
+//activating the modal//
+$(opnmodal).onclick = function(){
+    modal.style.display = "block";
+}
+
+//when clicking on x close the modal//
+clsmod.onclick = function(){
+    modal.style.display = "none";
+}
+
+//when clicking anywhere outside the modal -> close the modal//
+window.onclick = function(event){
+    if (event.target==modal){
+        modal.style.display = "none";
+    }
+}
