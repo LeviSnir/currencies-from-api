@@ -88,17 +88,10 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
         // $(cube).append("<div>" + result[i].symbol.toUpperCase() + "</div><div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");
         $(cube).append("<div>" + result[i].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
         
-        
-        
-        
+             
         $(cube).append("<div class='slider_but'><label class='switch'><input id='"+id+"' type='checkbox' data-toggle='toggle'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
         // $(cube).append(togbut);
        
-
-
-
-
-
 
         $(cube).append("<div>" + result[i].name + "</div><br/>");
 
