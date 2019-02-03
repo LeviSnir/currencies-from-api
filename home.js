@@ -49,10 +49,10 @@ function serachCoins() {
                 if(search === result[a].symbol){
                 $(".showallcoins").html("<img class='large-gif' src='images/bity.gif' />")
                 let id = result[a].id;
-                let cube = $("<div id='" + id + "'  class='onecube'></div>");
-                $(cube).append("<div>" + result[a].symbol.toUpperCase() + "</div>");
-                $(cube).append("<div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");
-                $(cube).append("<div>" + result[a].name + "</div><br/>");
+                let cube = $("<div id='" + id + "'  class='onecube'></div>"); //מגדיר את הריבוע למטבע המתאים
+                $(cube).append("<div>" + result[a].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
+                $(cube).append("<div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
+                $(cube).append("<div>" + result[a].name + "</div><br/>");//מכניס את השם של המטבע
 
                 var inside = $("<div class='collapse card card-body' id='info_" + id + "'></div>"); // זהו הדיב שמגדיר את הקולפס //
                 let but = $("<button type='button' class='btn btn-success'>More Info</button>"); // זהו הדיב של כפתור מידע נוסף //
