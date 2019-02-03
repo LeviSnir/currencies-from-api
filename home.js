@@ -51,7 +51,11 @@ function serachCoins() {
                 let id = result[a].id;
                 let cube = $("<div id='" + id + "'  class='onecube'></div>"); //מגדיר את הריבוע למטבע המתאים
                 $(cube).append("<div>" + result[a].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
-                $(cube).append("<div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
+                let togbut = $("<div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
+                $(bube).append(togbut);
+                // $(togbut).toggleon(function(){
+                //     alert("finaly!!")
+                // })
                 $(cube).append("<div>" + result[a].name + "</div><br/>");//מכניס את השם של המטבע
 
                 var inside = $("<div class='collapse card card-body' id='info_" + id + "'></div>"); // זהו הדיב שמגדיר את הקולפס //
