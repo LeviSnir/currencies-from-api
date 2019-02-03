@@ -8,6 +8,7 @@ $(document).ready(function () {
         serachCoins();
     });
 
+    
 });
 
 
@@ -49,7 +50,8 @@ function serachCoins() {
                 $(".showallcoins").html("<img class='large-gif' src='images/bity.gif' />")
                 let id = result[a].id;
                 let cube = $("<div id='" + id + "'  class='onecube'></div>");
-                $(cube).append("<div>" + result[a].symbol.toUpperCase() + "</div><div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");
+                $(cube).append("<div>" + result[a].symbol.toUpperCase() + "</div>");
+                $(cube).append("<div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");
                 $(cube).append("<div>" + result[a].name + "</div><br/>");
 
                 var inside = $("<div class='collapse card card-body' id='info_" + id + "'></div>"); // זהו הדיב שמגדיר את הקולפס //
