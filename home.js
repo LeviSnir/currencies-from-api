@@ -126,17 +126,6 @@ function funci(param_test){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 function moreInfo(id, index) {
     console.log(id);
 
