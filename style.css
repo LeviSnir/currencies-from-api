@@ -168,6 +168,14 @@ h2{
       margin: 0;    
   }
 
+  .modalslider_but{
+    position: relative;
+    /* left: 220px;
+    bottom: 24px; */
+    width: 45px;  
+    margin: 0;   
+  }
+
 
 #info{
     height: 220px;
