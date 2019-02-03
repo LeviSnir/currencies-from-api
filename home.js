@@ -51,9 +51,9 @@ function serachCoins() {
                 let id = result[a].id;
                 let cube = $("<div id='" + id + "'  class='onecube'></div>"); //מגדיר את הריבוע למטבע המתאים
                 $(cube).append("<div>" + result[a].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
-                let togbut = $("<div class='slider_but'><label class='switch'><input id='toggle-event' type='checkbox' data-toggle='toggle'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
+                let togbut = $("<div class='slider_but'><label class='switch'><input id='toggle-event"+i+"' type='checkbox' data-toggle='toggle'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
                 $(cube).append(togbut);
-                $("#toggle-event").ontoggle(function(){alert("finaly!!")});
+                $("#toggle-event"+i).change(function(){console.log("finaly!!")});
                 
                 $(cube).append("<div>" + result[a].name + "</div><br/>");//מכניס את השם של המטבע
 
@@ -84,8 +84,22 @@ function serachCoins() {
 function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכניסה נתונים לכל מטבע ומטבע //
     for (i = 0; i < 50; i++) {
         let id = result[i].id;
-        let cube = $("<div id='" + id + "'  class='col-md-3 cube'></div>");
-        $(cube).append("<div>" + result[i].symbol.toUpperCase() + "</div><div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");
+        let cube = $("<div id='" + i + "'  class='col-md-3 cube'></div>");
+        // $(cube).append("<div>" + result[i].symbol.toUpperCase() + "</div><div class='slider_but'><label class='switch'><input type='checkbox'><span class='slider round'></span></label></div>");
+        $(cube).append("<div>" + result[i].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
+        
+        
+        
+        
+        $(cube).append("<div class='slider_but'><label class='switch'><input id='"+id+"' type='checkbox' data-toggle='toggle'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
+        // $(cube).append(togbut);
+       
+
+
+
+
+
+
         $(cube).append("<div>" + result[i].name + "</div><br/>");
 
         var inside = $("<div class='collapse card card-body' id='info_" + id + "'></div>"); // זהו הדיב שמגדיר את הקולפס //
@@ -94,7 +108,7 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
         $(but).on("click", function () {
             $("#info_" + id).html("<img class='small-gif' src='images/bity.gif' />"); //פקודה שבלחיצה על הכפתור יראה גיף קטן
 
-            moreInfo(id);    /// קריאה לפונקציה מידע נוסף
+            moreInfo(id, i);    /// קריאה לפונקציה מידע נוסף
             $(`#info_` + id).collapse('toggle');     //הגדרת האיזור לקולפס
         });
         $(cube).append(but);     //הכנסת משתנה בוטון לתוך הקובייה של המטבע 
@@ -105,10 +119,32 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
 
 
     }
+    $("input:checkbox[type='checkbox']").change(function(){
+        console.log((this.id));
+        funci(this.id);
+    });
 
 }
 
-function moreInfo(id) {
+
+function funci(param_test){
+    $(".header").append(param_test);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function moreInfo(id, index) {
     console.log(id);
 
     getCoinInfoAsync(id, function (result) { //html פונקציה זו מקבלת איידי ומחזירה רזולט עי שקוראת לפונקציה אנונימית שאיתו בונים את 
@@ -119,7 +155,7 @@ function moreInfo(id) {
         $("#info_" + id).append("<div class='euro'>1 " + result.name + " = " + result.market_data.current_price.eur.toFixed(7) + " &#8364</div><br/>");//מוסיף את ערך המטבע הנבחר לעומת האירו
         $("#info_" + id).append("<div class='shekel'>1 " + result.name + " = " + result.market_data.current_price.ils.toFixed(7) + " &#8362</div><br/>");//מוסיף את ערך המטבע הנבחר לעומת השקל
 
-        $("#" + id).append($("#info_" + id)); //מוסיף את כל האינפורמציה שהתקבלה ב אינפו עם קו תחתון לתוך איידי של שם המטבע
+        $("#" + index).append($("#info_" + id)); //מוסיף את כל האינפורמציה שהתקבלה ב אינפו עם קו תחתון לתוך איידי של שם המטבע
     });
 
 }
