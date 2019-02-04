@@ -115,12 +115,12 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
 
 function funci(param_name,param_code){
     if ($("input:checkbox[type='checkbox']").attr(':checked'));{
-    let togobj = localStorage.togbutarray ? JSON.parse(localStorage.togbutarray) : {};
+    let togobj = localStorage.togbutarray ? JSON.parse(localStorage.togbutarray) : [{}];
     togobj = {
         name : param_name,
         symbol : param_code,
     };
-    
+    localStorage.togbutarray = localStorage.togbutarray + togobj;
     localStorage.togbutarray = JSON.stringify(togobj);
     
 
