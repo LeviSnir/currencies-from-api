@@ -82,7 +82,7 @@ function serachCoins() {
 
 
 function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכניסה נתונים לכל מטבע ומטבע //
-    for (i = 0; i < 50; i++) {
+    for (let i = 0; i < 50; i++) {
         let id = result[i].id;
         let cube = $("<div id='" + i + "'  class='col-md-3 cube'></div>");
         $(cube).append("<div>" + result[i].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
@@ -104,18 +104,17 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
         // $(cube).append(moreInfo(id));
         $(".showallcoins").append(cube);     /////הכנסת קוביה לתוך המסך הראשי לקלאס המתאים
 
-
+        $("input:checkbox[type='checkbox']", cube).change(function(){  /// קריאה לפונקציה כאשר משתנה הטוגל בוטון
+            funci(result[i].id, result[i].symbol);
+        });
+    
     }
-    $("input:checkbox[type='checkbox']").change(function(){  /// קריאה לפונקציה כאשר משתנה הטוגל בוטון
-        console.log((this.id,this.symbol));
-        funci(this.id,this.symbol);
-    });
 
 }
 
 
-function funci(param_name,code){
-    let row = $("<tr><td>"+param_name+"</td><td>"+code+"</td><td><div class='modalslider_but'><label class='switch'><input type='checkbox' checked data-toggle='toggle'><span class='slider round'></span></label></div></td>")
+function funci(param_name,param_code){
+    let row = $("<tr><td>"+param_name+"</td><td>"+param_code+"</td><td><div class='modalslider_but'><label class='switch'><input type='checkbox' checked data-toggle='toggle'><span class='slider round'></span></label></div></td>")
     $("#targettogbut").append(row);
 }
 
