@@ -19,7 +19,7 @@ function getAllCoins() {
         type: "get", //the request protocol type
         data: {}, // the data we want to send to the server
         success: function (result) { // the callback function to run when we get the data back from the server
-            console.log(result);
+            // console.log(result);
             $(".showallcoins").html("");
             arrangeCoins(result);
 
@@ -107,15 +107,16 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
 
     }
     $("input:checkbox[type='checkbox']").change(function(){  /// קריאה לפונקציה כאשר משתנה הטוגל בוטון
-        console.log((this.id));
-        funci(this.id);
+        console.log((this.id,this.symbol));
+        funci(this.id,this.symbol);
     });
 
 }
 
 
-function funci(param_test){
-    $(".header").append(param_test);
+function funci(param_name,code){
+    let row = $("<tr><td>"+param_name+"</td><td>"+code+"</td><td><div class='modalslider_but'><label class='switch'><input type='checkbox' checked data-toggle='toggle'><span class='slider round'></span></label></div></td>")
+    $("#targettogbut").append(row);
 }
 
 
