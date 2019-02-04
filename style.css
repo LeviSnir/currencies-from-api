@@ -177,9 +177,9 @@ h2{
   }
 
 
-#info{
-    height: 220px;
-    width: 275px;
+.card.card-body.collapse.show{
+    height: 385px;
+    width: 270px;
 }
 
 .inside{
