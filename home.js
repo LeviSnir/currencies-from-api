@@ -114,6 +114,15 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
 
 
 function funci(param_name,param_code){
+    let togobj = localStorage.togbutarray ? JSON.parse(localStorage.togbutarray) : {};
+    togobj = {
+        name : param_name,
+        symbol : param_code,
+    };
+
+    
+    localStorage.togbutarray = JSON.stringify(togobj);
+
     let row = $("<tr><td>"+param_name+"</td><td>"+param_code+"</td><td><div class='modalslider_but'><label class='switch'><input type='checkbox' checked data-toggle='toggle'><span class='slider round'></span></label></div></td>")
     $("#targettogbut").append(row);
 }
