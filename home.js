@@ -38,10 +38,8 @@ function serachCoins() {
     let search = $("#search_box").val();
     
     search = search.toUpperCase();
-
     $('.cube').each(function () {
-
-        console.log($(this));
+        // console.log($(this));
         if (!search)
             $(this).show();
         else if ($(this).find(".coinsymbol").html() != search) {
@@ -50,9 +48,6 @@ function serachCoins() {
             $(this).show();
         }
     });
-
-
-
 }
     
 
