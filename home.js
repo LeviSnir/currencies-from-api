@@ -84,26 +84,27 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
 }
 
 
-function funci(param_name,param_code,toggleDIV){//פונקציית שינויים בטוגל
-    if ($(toggleDIV).is(":checked")){   //אם האיידי הייחודי לכל מטבע הוא מסומן
-        var tempArr = new Array();  ///מגדיר מערך זמני חדש
-        tempArr.push(param_name, param_code);//מכניס למערך הזמני את השם של המטבע ואת הסימול של המטבע
+function funci(param_name,param_code,toggleDIV){        //פונקציית שינויים בטוגל
+    if ($(toggleDIV).is(":checked")){                   //אם האיידי הייחודי לכל מטבע הוא מסומן
+        var tempArr = new Array();                      ///מגדיר מערך זמני חדש
+        tempArr.push(param_name, param_code);           //מכניס למערך הזמני את השם של המטבע ואת הסימול של המטבע
 
-        togArray[togArray.length] = tempArr; // מכניס את כל המערך הזמני לתוך טוגאראי שזה יהיה כאורך המערך הזמני
+        togArray[togArray.length] = tempArr;             // מכניס את כל המערך הזמני לתוך טוגאראי שזה יהיה כאורך המערך הזמני
 
-        if (togArray.length == 5) {    /// אם אורך המערך טוגאראי שווה ל 5 אז
+        if (togArray.length == 5) {                      /// אם אורך המערך טוגאראי שווה ל 5 אז
             $(".coins-coin-switch").each(function () {   /// לולאה עבור כל טוגל שנמצא בכל מטבע
                 if (($(this).is(":not(:checked)"))) {    /// כל מה שלא מסומן כרגע - שגם לא יוכל להיות מסומן
-                    $(this).prop("disabled", true);   /// לולאה זו מונעת שלא יהיו מעבר ל 5 מטבעות מסומנים בטוגל 
+                    $(this).prop("disabled", true);      /// לולאה זו מונעת שלא יהיו מעבר ל 5 מטבעות מסומנים בטוגל 
                 }
             });
         }
+        
     }
     else {
-        for (var i = 0; i < togArray.length; i++) {   /// זאת היא לולאה שעוברת על כל מערך הטוגלים ומזהה אם כבר קיים
-            if (togArray[i][1] == param_code) {       /// המטבע במערך אז תוציא אותו מהמערך
-                togArray.splice(i, 1);                 /// פקודת ההוצאה מהמערך
-                break;                                 /// עצור את הלולאה
+        for (var i = 0; i < togArray.length; i++) {      /// זאת היא לולאה שעוברת על כל מערך הטוגלים ומזהה אם כבר קיים
+            if (togArray[i][1] == param_code) {          /// המטבע במערך אז תוציא אותו מהמערך
+                togArray.splice(i, 1);                   /// פקודת ההוצאה מהמערך
+                break;                                   /// עצור את הלולאה
             }
         }
 
