@@ -89,12 +89,12 @@ function funci(param_name,param_code,toggleDIV){//פונקציית שינויי�
         var tempArr = new Array();  ///מגדיר מערך זמני חדש
         tempArr.push(param_name, param_code);//מכניס למערך הזמני את השם של המטבע ואת הסימול של המטבע
 
-        togArray[togArray.length] = tempArr; //
+        togArray[togArray.length] = tempArr; // מכניס את כל המערך הזמני לתוך טוגאראי שזה יהיה כאורך המערך הזמני
 
-        if (togArray.length == 5) {
-            $(".coins-coin-switch").each(function () {
-                if (($(this).is(":not(:checked)"))) {
-                    $(this).prop("disabled", true);
+        if (togArray.length == 5) {    /// אם אורך המערך טוגאראי שווה ל 5 אז
+            $(".coins-coin-switch").each(function () {   /// לולאה עבור כל טוגל שנמצא בכל מטבע
+                if (($(this).is(":not(:checked)"))) {    /// כל מה שלא מסומן כרגע - שגם לא יוכל להיות מסומן
+                    $(this).prop("disabled", true);   /// לולאה זו מונעת שלא יהיו מעבר ל 5 מטבעות מסומנים בטוגל 
                 }
             });
         }
@@ -119,20 +119,17 @@ function funci(param_name,param_code,toggleDIV){//פונקציית שינויי�
 
 
 
-function printCoinsToModal() {
-    $("#targettogbut").html("");
-    let html = "";
-    for (var i = 0; i < togArray.length; i++) {
+function printCoinsToModal() {   ///פונקצייה המכניסה את המטבעות לתוך המודל
+    $("#targettogbut").html("");   ///מנקה את המודל
+    let html = "";    ///     מאפס את אייץ טי אמ אל
+    for (var i = 0; i < togArray.length; i++) {       //// בונה לולאה להכנסת המטבע לתוך שורה במודל (היות וזאת טבלה 
             html += "<tr>";
             html += "<td>" + togArray[i][0] + "</td>";
             html += "<td>" + togArray[i][1] + "</td>";
             html += "<td><div class='modalslider_but'><label class='switch'><input class='modal-coin-switch' id='modal_coin_switch_"+togArray[i][1]+"' type='checkbox' data-toggle='toggle' checked><span class='slider round'></span></label></div></td>";
             html += "</tr>";
-
-
     }
-
-    $("#targettogbut").html(html);
+    $("#targettogbut").html(html);    ////מכניס את אייץ טי אם אל לתוך המיקום בדך הראשי
 }
 
 function moreInfo(id, index) {
