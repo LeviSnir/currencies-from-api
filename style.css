@@ -221,18 +221,27 @@ h2{
 
   /* this is the close button */
   .close {
-    color: black;
+    /* color: black; */
+    /* background-color: red; */
     float: right;
-    font-size: 28px;
+    /* font-size: 28px; */
     font-weight: bold;
-    text-align: center;
+    /* text-align: center; */
+    opacity: 1;
+    border: none;
+    
+    text-shadow: 0 0 0 ;
   }
   
 
   /* this is the close hover */
 .close:hover,
 .close:focus {
-  color: brown;
+  /* color: brown; */
   text-decoration: none;
-  cursor: pointer;
+  cursor: pointer; 
+}
+
+.sveit{
+    float: left;
 }
