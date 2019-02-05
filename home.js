@@ -1,9 +1,12 @@
+var togArray = [];
+
 
 $(document).ready(function () {
 
      $("#home").on("click", function () {
         getAllCoins();
     });
+
     $("#searchcoin").on("click", function () {
         serachCoins();
     });
@@ -33,50 +36,24 @@ function getAllCoins() {
 
 function serachCoins() {
     let search = $("#search_box").val();
-    console.log("SEARCH= " + search);
-    if (search == "") {
-        getAllCoins();
-    }
-    else {
-        
-        $.ajax({
-            url: "https://api.coingecko.com/api/v3/coins/list", // The Address To Send The Request to
-            type: "get", //the request protocol type
-            data: {}, // the data we want to send to the server
-            success: function (result) { // the callback function to run when we get the data back from the server
-                console.log(result);
-                for(a=0 ; a<result.length ; a++){
-                if(search === result[a].symbol){
-                $(".showallcoins").html("<img class='large-gif' src='images/bity.gif' />")
-                let id = result[a].id;
-                let cube = $("<div id='" + id + "'  class='onecube'></div>"); //מגדיר את הריבוע למטבע המתאים
-                $(cube).append("<div>" + result[a].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
-                let togbut = $("<div class='slider_but'><label class='switch'><input id='toggle-event"+i+"' type='checkbox' data-toggle='toggle'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
-                $(cube).append(togbut);
-                $("#toggle-event"+i).change(function(){console.log("finaly!!")});
-                
-                $(cube).append("<div>" + result[a].name + "</div><br/>");//מכניס את השם של המטבע
+    
+    search = search.toUpperCase();
 
-                var inside = $("<div class='collapse card card-body' id='info_" + id + "'></div>"); // זהו הדיב שמגדיר את הקולפס //
-                let but = $("<button type='button' class='btn btn-success'>More Info</button>"); // זהו הדיב של כפתור מידע נוסף //
+    $('.cube').each(function () {
 
-                $(but).on("click", function () {
-                $("#info_" + id).html("<img class='small-gif' src='images/bity.gif' />"); //פקודה שבלחיצה על הכפתור יראה גיף קטן
-
-                moreInfo(id);    /// קריאה לפונקציה מידע נוסף
-                $(`#info_` + id).collapse('toggle');     //הגדרת האיזור לקולפס
-                      });
-                $(cube).append(but);     //הכנסת משתנה בוטון לתוך הקובייה של המטבע 
-                $(cube).append(inside);    ///  הכנסת משתנה אינסייד לתוך קוביית המטבע
-                $(".showallcoins").html("");
-                $(".showallcoins").append(cube);     /////הכנסת קוביה לתוך המסך הראשי לקלאס המתאים
-                    }
-                }
-            }
-                })
-            }
-
+        console.log($(this));
+        if (!search)
+            $(this).show();
+        else if ($(this).find(".coinsymbol").html() != search) {
+            $(this).hide();
+        } else if ($(this).find(".coinsymbol").html() == search) {
+            $(this).show();
         }
+    });
+
+
+
+}
     
 
 
@@ -85,7 +62,7 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
     for (let i = 0; i < 50; i++) {
         let id = result[i].id;
         let cube = $("<div id='" + i + "'  class='col-md-3 cube'></div>");
-        $(cube).append("<div>" + result[i].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
+        $(cube).append("<div class='coinsymbol'>" + result[i].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
         $(cube).append("<div class='slider_but'><label class='switch'><input id='"+id+"' type='checkbox' data-toggle='toggle'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
         $(cube).append("<div>" + result[i].name + "</div><br/>"); // מכניס את שם המטבע
 
