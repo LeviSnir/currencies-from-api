@@ -200,7 +200,7 @@ function getCoinInfoAsync(id, callback) {
     });
     
     //when clicking on x close the modal//
-    $('.close').on("click", function(){
+    $('.cls').on("click", function(){
         $('#mymodal').css("display","none");
     });
 
