@@ -76,7 +76,7 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
         $(".showallcoins").append(cube);     /////הכנסת קוביה לתוך המסך הראשי לקלאס המתאים
 
         $("input:checkbox[type='checkbox']", cube).change(function(){  /// קריאה לפונקציה כאשר משתנה הטוגל בוטון
-            funci(result[i].id, result[i].symbol, $("#coins_coin_switch_"+id));
+            funci(result[i].id, result[i].symbol, $("#coins_coin_switch_"+id));//מעביר לפונקציה של שינויי טוגל את השם והסימול והאיידי הייחודי לכל מטבע
         });
     
     }
@@ -84,12 +84,12 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
 }
 
 
-function funci(param_name,param_code,toggleDIV){
-    if ($(toggleDIV).is(":checked")){
-        var tempArr = new Array();
-        tempArr.push(param_name, param_code);
+function funci(param_name,param_code,toggleDIV){//פונקציית שינויים בטוגל
+    if ($(toggleDIV).is(":checked")){   //אם האיידי הייחודי לכל מטבע הוא מסומן
+        var tempArr = new Array();  ///מגדיר מערך זמני חדש
+        tempArr.push(param_name, param_code);//מכניס למערך הזמני את השם של המטבע ואת הסימול של המטבע
 
-        togArray[togArray.length] = tempArr;
+        togArray[togArray.length] = tempArr; //
 
         if (togArray.length == 5) {
             $(".coins-coin-switch").each(function () {
