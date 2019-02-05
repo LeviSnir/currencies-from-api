@@ -35,12 +35,12 @@ function getAllCoins() {
 }
 
 function serachCoins() {
-    let search = $("#search_box").val();
+    let search = $("#search_box").val();     ///    תן למשתנה סרץ את הערך של מה שמופיע במלבן
     
-    search = search.toUpperCase();
-    $('.cube').each(function () {
+    search = search.toUpperCase();            ///     משנה את הערך שבתוך המלבן לאותיות גדולות
+    $('.cube').each(function () {             ///      עבור על כל קוביית מטבע ובצע את הפעולות הבאות
         // console.log($(this));
-        if (!search)
+        if (!search)                           
             $(this).show();
         else if ($(this).find(".coinsymbol").html() != search) {
             $(this).hide();
