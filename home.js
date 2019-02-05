@@ -58,9 +58,8 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
         let id = result[i].id;
         let cube = $("<div id='" + i + "'  class='col-md-3 cube'></div>");
         $(cube).append("<div class='coinsymbol'>" + result[i].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
-        $(cube).append("<div class='slider_but'><label class='switch'><input id='"+id+"' type='checkbox' data-toggle='toggle'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
+        $(cube).append("<div class='slider_but'><label class='switch'><input class='coins-coin-switch' id='coins_coin_switch_"+id+"' type='checkbox' data-toggle='toggle'><span class='slider round'></span></label></div>");//מכניס טוגל סוויץ
         $(cube).append("<div>" + result[i].name + "</div><br/>"); // מכניס את שם המטבע
-
         var inside = $("<div class='collapse card card-body' id='info_" + id + "'></div>"); // זהו הדיב שמגדיר את הקולפס //
         let but = $("<button type='button' class='btn btn-success'>More Info</button>"); // זהו הדיב של כפתור מידע נוסף //
 
@@ -77,7 +76,7 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
         $(".showallcoins").append(cube);     /////הכנסת קוביה לתוך המסך הראשי לקלאס המתאים
 
         $("input:checkbox[type='checkbox']", cube).change(function(){  /// קריאה לפונקציה כאשר משתנה הטוגל בוטון
-            funci(result[i].id, result[i].symbol);
+            funci(result[i].id, result[i].symbol, $("#coins_coin_switch_"+id));
         });
     
     }
@@ -85,22 +84,56 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
 }
 
 
-function funci(param_name,param_code){
-    if ($("input:checkbox[type='checkbox']").attr(':checked'));{
-    let togobj = localStorage.togbutarray ? JSON.parse(localStorage.togbutarray) : [{}];
-    togobj = {
-        name : param_name,
-        symbol : param_code,
-    };
-    localStorage.togbutarray = localStorage.togbutarray + togobj;
-    localStorage.togbutarray = JSON.stringify(togobj);
-    
+function funci(param_name,param_code,toggleDIV){
+    if ($(toggleDIV).is(":checked")){
+        var tempArr = new Array();
+        tempArr.push(param_name, param_code);
 
-    let row = $("<tr><td>"+param_name+"</td><td>"+param_code+"</td><td><div class='modalslider_but'><label class='switch'><input type='checkbox' checked data-toggle='toggle'><span class='slider round'></span></label></div></td>")
-    $("#targettogbut").append(row);
-}
+        togArray[togArray.length] = tempArr;
+
+        if (togArray.length == 5) {
+            $(".coins-coin-switch").each(function () {
+                if (($(this).is(":not(:checked)"))) {
+                    $(this).prop("disabled", true);
+                }
+            });
+        }
+    }
+    else {
+        for (var i = 0; i < togArray.length; i++) {
+            if (togArray[i][1] == param_code) {
+                togArray.splice(i, 1);
+                break;
+            }
+        }
+
+        if (togArray.length < 5) {
+            $(".coins-coin-switch").each(function () {
+                if (($(this).is(":not(:checked)"))) {
+                    $(this).prop("disabled", false);
+                }
+            });
+        }
+    }
 }
 
+
+
+function printCoinsToModal() {
+    $("#targettogbut").html("");
+    let html = "";
+    for (var i = 0; i < togArray.length; i++) {
+            html += "<tr>";
+            html += "<td>" + togArray[i][0] + "</td>";
+            html += "<td>" + togArray[i][1] + "</td>";
+            html += "<td><div class='modalslider_but'><label class='switch'><input class='modal-coin-switch' id='modal_coin_switch_"+togArray[i][1]+"' type='checkbox' data-toggle='toggle' checked><span class='slider round'></span></label></div></td>";
+            html += "</tr>";
+
+
+    }
+
+    $("#targettogbut").html(html);
+}
 
 function moreInfo(id, index) {
     console.log(id);
@@ -165,6 +198,7 @@ function getCoinInfoAsync(id, callback) {
     //activating the modal//
     $('#opnmodal').on("click", function(){
        $('#mymodal').css("display","block");
+       printCoinsToModal();
     });
     
     //when clicking on x close the modal//
