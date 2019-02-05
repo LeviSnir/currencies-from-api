@@ -40,11 +40,11 @@ function serachCoins() {
     search = search.toUpperCase();            ///     משנה את הערך שבתוך המלבן לאותיות גדולות
     $('.cube').each(function () {             ///      עבור על כל קוביית מטבע ובצע את הפעולות הבאות
         // console.log($(this));
-        if (!search)                           
+        if (!search)                           ///    כל עוד המלבן ריק - תראה את כל הקוביות
             $(this).show();
-        else if ($(this).find(".coinsymbol").html() != search) {
+        else if ($(this).find(".coinsymbol").html() != search) {                ///   תחביא את כל המטבעות שלא מתאימים לסמל שמופיע בתוך המלבן
             $(this).hide();
-        } else if ($(this).find(".coinsymbol").html() == search) {
+        } else if ($(this).find(".coinsymbol").html() == search) {           //// תציג את המטבע שבו הסמל מתאים 
             $(this).show();
         }
     });
