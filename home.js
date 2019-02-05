@@ -100,17 +100,17 @@ function funci(param_name,param_code,toggleDIV){//פונקציית שינויי�
         }
     }
     else {
-        for (var i = 0; i < togArray.length; i++) {
-            if (togArray[i][1] == param_code) {
-                togArray.splice(i, 1);
-                break;
+        for (var i = 0; i < togArray.length; i++) {   /// זאת היא לולאה שעוברת על כל מערך הטוגלים ומזהה אם כבר קיים
+            if (togArray[i][1] == param_code) {       /// המטבע במערך אז תוציא אותו מהמערך
+                togArray.splice(i, 1);                 /// פקודת ההוצאה מהמערך
+                break;                                 /// עצור את הלולאה
             }
         }
 
         if (togArray.length < 5) {
-            $(".coins-coin-switch").each(function () {
-                if (($(this).is(":not(:checked)"))) {
-                    $(this).prop("disabled", false);
+            $(".coins-coin-switch").each(function () {   /// כל עוד המערך של טוגאראי קטן מ 5 
+                if (($(this).is(":not(:checked)"))) {    ///  כל מה שלא מסומן שיתאפשר לו להיות מסומן
+                    $(this).prop("disabled", false);     ///  פותחים את הסוויץ לאפשרויות סימון נוספות
                 }
             });
         }
