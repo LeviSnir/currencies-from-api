@@ -78,6 +78,11 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
         $("input:checkbox[type='checkbox']", cube).change(function(){  /// קריאה לפונקציה כאשר משתנה הטוגל בוטון
             funci(result[i].id, result[i].symbol, $("#coins_coin_switch_"+id));//מעביר לפונקציה של שינויי טוגל את השם והסימול והאיידי הייחודי לכל מטבע
         });
+        $("label", cube).click(function(){  /// קריאה לפונקציה כאשר משתנה הטוגל בוטון
+            if ($("#coins_coin_switch_"+id).prop("disabled") == true) {
+                funci(result[i].id, result[i].symbol, $("#coins_coin_switch_"+id));//מעביר לפונקציה של שינויי טוגל את השם והסימול והאיידי הייחודי לכל מטבע
+            }
+        });
     
     }
 
@@ -104,7 +109,7 @@ function funci(param_name,param_code,toggleDIV){        //פונקציית שי�
         }
         
     }
-    else {
+    else if ($(toggleDIV).is(":not(:checked)") && $(toggleDIV).prop("disabled") == false) {
         for (var i = 0; i < togArray.length; i++) {      /// זאת היא לולאה שעוברת על כל מערך הטוגלים ומזהה אם כבר קיים
             if (togArray[i][1] == param_code) {          /// המטבע במערך אז תוציא אותו מהמערך
                 togArray.splice(i, 1);                   /// פקודת ההוצאה מהמערך
@@ -120,7 +125,11 @@ function funci(param_name,param_code,toggleDIV){        //פונקציית שי�
             });
         }
     }
-    
+    else if (togArray.length == 5 && $(toggleDIV).prop("disabled") == true) {
+        printCoinsToModal();
+        $('#mymodal').css("display","block");
+    }
+    console.log(togArray.length);
 }
 
 
