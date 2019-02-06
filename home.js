@@ -1,4 +1,5 @@
 var togArray = [];
+var tempTogArray = [];
 
 
 $(document).ready(function () {
@@ -13,7 +14,6 @@ $(document).ready(function () {
 
     
 });
-
 
 function getAllCoins() {
     $(".showallcoins").html("<img class='large-gif' src='images/bity.gif' />")
@@ -78,8 +78,11 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
         $("input:checkbox[type='checkbox']", cube).change(function(){  /// קריאה לפונקציה כאשר משתנה הטוגל בוטון
             funci(result[i].id, result[i].symbol, $("#coins_coin_switch_"+id));//מעביר לפונקציה של שינויי טוגל את השם והסימול והאיידי הייחודי לכל מטבע
         });
-        $("label", cube).click(function(){  /// קריאה לפונקציה כאשר משתנה הטוגל בוטון
+        $("label", cube).click(function(){  /// קריאה לפונקציה כאשר יש 5 טוגולים מסומנים והשאר לא ניתנים לשינוי
             if ($("#coins_coin_switch_"+id).prop("disabled") == true) {
+                tempTogArray[0] = result[i].id;
+                tempTogArray[1] = result[i].symbol;
+                tempTogArray[2] = $("#coins_coin_switch_"+id);
                 funci(result[i].id, result[i].symbol, $("#coins_coin_switch_"+id));//מעביר לפונקציה של שינויי טוגל את השם והסימול והאיידי הייחודי לכל מטבע
             }
         });
@@ -146,6 +149,36 @@ function printCoinsToModal() {   ///פונקצייה המכניסה את המט�
     }
     $("#targettogbut").html(html);    ////מכניס את אייץ טי אם אל לתוך המיקום בדך הראשי
 }
+
+$(".sveit").click(function(){
+    $('#targettogbut .modal-coin-switch').each(function () {
+        if ($(this).is(":not(:checked)")) {
+            var symbol = $(this).parent().parent().parent().prev().html();
+            var name = $(this).parent().parent().parent().prev().prev().html();
+            for (var i = 0; i < togArray.length; i++) {      /// זאת היא לולאה שעוברת על כל מערך הטוגלים ומזהה אם כבר קיים
+                if (togArray[i][1] == symbol) {          /// המטבע במערך אז תוציא אותו מהמערך
+                    togArray.splice(i, 1);                   /// פקודת ההוצאה מהמערך
+                    break;                                   /// עצור את הלולאה
+                }
+            }
+            $("#coins_coin_switch_"+name).prop("checked", false);
+        }
+    });
+
+    if (togArray.length < 5) {
+        $('.coins-coin-switch').each(function () {
+            if ($(this).prop("disabled") == true) {
+                $(this).prop("disabled", false);
+            }
+
+        });
+
+        $(tempTogArray[2]).prop("checked", true);
+        funci(tempTogArray[0], tempTogArray[1], tempTogArray[2]);
+    }
+
+    $("#mymodal").hide();
+});
 
 function moreInfo(id, index) {
     console.log(id);
