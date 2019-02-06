@@ -98,7 +98,7 @@ function funci(param_name,param_code,toggleDIV){        //פונקציית שי�
                 }
             });
         }
-        // $("#coins-coin-switch").on("click",update( $('#mymodal')).css("display","block"));
+        $("#coins_coin_switch_").on("click",update( $('#mymodal')).css("display","block"));
     }
     else {
         for (var i = 0; i < togArray.length; i++) {      /// זאת היא לולאה שעוברת על כל מערך הטוגלים ומזהה אם כבר קיים
