@@ -85,6 +85,7 @@ function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכני�
 
 
 function funci(param_name,param_code,toggleDIV){        //פונקציית שינויים בטוגל
+    
     if ($(toggleDIV).is(":checked")){                   //אם האיידי הייחודי לכל מטבע הוא מסומן
         var tempArr = new Array();                      ///מגדיר מערך זמני חדש
         tempArr.push(param_name, param_code);           //מכניס למערך הזמני את השם של המטבע ואת הסימול של המטבע
@@ -97,8 +98,11 @@ function funci(param_name,param_code,toggleDIV){        //פונקציית שי�
                     $(this).prop("disabled", true);      /// לולאה זו מונעת שלא יהיו מעבר ל 5 מטבעות מסומנים בטוגל 
                 }
             });
+            // $(".coins-coin-switch").on("click", function(){
+            //     $('#mymodal').css("display","block");
+            //  });    
         }
-        $("#coins_coin_switch_").on("click",update( $('#mymodal')).css("display","block"));
+        
     }
     else {
         for (var i = 0; i < togArray.length; i++) {      /// זאת היא לולאה שעוברת על כל מערך הטוגלים ומזהה אם כבר קיים
@@ -116,6 +120,7 @@ function funci(param_name,param_code,toggleDIV){        //פונקציית שי�
             });
         }
     }
+    
 }
 
 
