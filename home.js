@@ -108,9 +108,7 @@ function funci(param_name,param_code,toggleDIV){        //פונקציית שי�
                     $(this).prop("disabled", true);      /// לולאה זו מונעת שלא יהיו מעבר ל 5 מטבעות מסומנים בטוגל 
                 }
             });
-            // $(".coins-coin-switch").on("click", function(){
-            //     $('#mymodal').css("display","block");
-            //  });    
+           
         }
         
     }
