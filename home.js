@@ -5,6 +5,8 @@ var tempTogArray = [];
 $(document).ready(function () {
 
      $("#home").on("click", function () {
+        $("#chartContainer").hide();
+        $(".showallcoins").show();
         getAllCoins();
     });
 
@@ -18,6 +20,8 @@ $(document).ready(function () {
 });
 
 function getAllCoins() {
+    
+    
     $(".showallcoins").html("<img class='large-gif' src='images/bity.gif' />")
     $.ajax({
         url: "https://api.coingecko.com/api/v3/coins/list", // The Address To Send The Request to
@@ -254,6 +258,8 @@ function getCoinInfoAsync(id, callback) {
     
 
     function livereports(){
-        $(".showallcoins").html("");
-        console.log(togArray);
-        
+    //     $(".showallcoins").html("");
+    $(".showallcoins").hide();
+         console.log(togArray);
+
+    }         
