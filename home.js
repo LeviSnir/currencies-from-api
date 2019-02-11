@@ -332,7 +332,7 @@ function getCoinInfoAsync(id, callback) {
              chart.render();
          }
          
-         var updateInterval = 3000;
+         var updateInterval = 2000;
          
          
          var time = new Date;
