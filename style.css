@@ -8,6 +8,7 @@ body,html{
 
   /* Set a specific height */
   height: 100%; 
+  
 
   /* Create the parallax scrolling effect */
   background-attachment: fixed; 
@@ -190,5 +191,11 @@ h2{
 
 #chartContainer{
     height: 370px;
-    width: 100%;"
+    width: 100%;
+}
+
+.abtheader{
+    display: none;
+    background-image: none;
+    text-align: center;
 }

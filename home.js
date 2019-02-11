@@ -1,13 +1,15 @@
 var togArray = [];
 var tempTogArray = [];
+var liveReportsInterval ;
 
 
 $(document).ready(function () {
-
+    getAllCoins();
      $("#home").on("click", function () {
         $("#chartContainer").hide();
         $(".showallcoins").show();
-        getAllCoins();
+        clearInterval(liveReportsInterval);
+        
     });
 
     $("#searchcoin").on("click", function () {
@@ -16,6 +18,15 @@ $(document).ready(function () {
 
     $("#live_reports").on("click", function(){
         livereports();
+        $(".abtheader").hide();
+        
+    })
+
+    $("#about").on("click", function(){
+        
+        $("#chartContainer").hide();
+        $(".showallcoins").hide();
+        $(".abtheader").show();
     })
 });
 
@@ -60,7 +71,7 @@ function serachCoins() {
 
 
 function arrangeCoins(result) {     //זאת לולאה שמסדרת ומכניסה נתונים לכל מטבע ומטבע //
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100 ; i++) {
         let id = result[i].id;
         let cube = $("<div id='" + i + "'  class='col-md-3 cube'></div>");
         $(cube).append("<div class='coinsymbol'>" + result[i].symbol.toUpperCase() + "</div>");//מכניס סמל המטבע
@@ -262,48 +273,100 @@ function getCoinInfoAsync(id, callback) {
     $(".showallcoins").hide();
     $("#chartContainer").show();
          console.log(togArray);
-         var dps = []; // dataPoints
-var chart = new CanvasJS.Chart("chartContainer", {
-	title :{
-		text: "Dynamic Data"
-	},
-	axisY: {
-		includeZero: false
-	},      
-	data: [{
-		type: "line",
-		dataPoints: dps
-	}]
-});
+         var dataPoints = [];
+         var data=[];
+         var chartTitles = "";
+         for(i=0 ; i<togArray.length ; i++){
+            dataPoints[i] = [];
+            data.push({
+                type: "line",
+                xValueType: "dateTime",
+                yValueFormatString: "$####.00",
+                xValueFormatString: "hh:mm:ss TT",
+                showInLegend: true,
+                name: togArray[i][1],
+                dataPoints: dataPoints[i]
+            });
+            chartTitles += togArray[i][1].toUpperCase();
+            if (i != togArray.length - 1){
+            chartTitles += ",";
+            }
 
-var xVal = 0;
-var yVal = 100; 
-var updateInterval = 1000;
-var dataLength = 20; // number of dataPoints visible at any point
+         }
+         
+         var chart = new CanvasJS.Chart("chartContainer", {
+             zoomEnabled: true,
+             title: {
+                 text: "Live reports"
+             },
+             axisX: {
+                 title: "chart updates every 2 secs",
+                 labelFormatter:function(e){
+                 return CanvasJS.formatDate(e.value,"mm:ss");
+                 }
+             },
+             axisY:{
+                 prefix: "$",
+                 includeZero: false
+             }, 
+             toolTip: {
+                 shared: true
+             },
+             legend: {
+                 cursor:"pointer",
+                 verticalAlign: "top",
+                 fontSize: 22,
+                 fontColor: "dimGrey",
+                 itemclick : toggleDataSeries
+             },
+             data: data
+         });
+         
+         function toggleDataSeries(e) {
+             if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                 e.dataSeries.visible = false;
+             }
+             else {
+                 e.dataSeries.visible = true;
+             }
+             chart.render();
+         }
+         
+         var updateInterval = 3000;
+         
+         
+         var time = new Date;
+         // starting at 9.30 am
+         time.setHours(0);
+         time.setMinutes(0);
+         time.setSeconds(00);
+         time.setMilliseconds(00);
 
-var updateChart = function (count) {
+function getData(){
+    $.getJSON("https://min-api.cryptocompare.com/data/pricemulti?fsyms="+chartTitles+"&tsyms=USD&api_key=cb7c350a2c94f1abfb7042120b7254740d32f96a529bdda151c27dafc978963a", updateChart);
+}
+         
+         function updateChart(data) {
+            console.log(data);
+            time.setTime(time.getTime()+updateInterval);
+         
+             // pushing the new values
+             for (i=0 ; i < togArray.length ; i++){
+             
+                           
+             dataPoints[i].push({
+                 x: time.getTime(),
+                 y: data[togArray[i][1].toUpperCase()]["USD"]
+             });
+             }
+             chart.render();
+          }
+         // generates first set of dataPoints 	
+         liveReportsInterval = setInterval(function(){getData()}, updateInterval);
+         
+         }
 
-	count = count || 1;
 
-	for (var j = 0; j < count; j++) {
-		yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
-		dps.push({
-			x: xVal,
-			y: yVal
-		});
-		xVal++;
-	}
-
-	if (dps.length > dataLength) {
-		dps.shift();
-	}
-
-	chart.render();
-};
-
-updateChart(dataLength);
-setInterval(function(){updateChart()}, updateInterval);
-
-
-
-    }         
+function About(){
+    $("#about").append("<div class='header'><h1>Snir Levi</h1></div>");
+}         
