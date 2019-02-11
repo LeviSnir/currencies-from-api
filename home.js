@@ -366,7 +366,3 @@ function getData(){
          
          }
 
-
-function About(){
-    $("#about").append("<div class='header'><h1>Snir Levi</h1></div>");
-}         
